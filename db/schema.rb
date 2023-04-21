@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_21_032804) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_21_033449) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -49,5 +49,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_21_032804) do
     t.index ["manufacturer_id"], name: "index_pianos_on_manufacturer_id"
   end
 
+  create_table "pieces", force: :cascade do |t|
+    t.integer "opus"
+    t.integer "number"
+    t.string "type_of_piece"
+    t.string "nickname"
+    t.integer "composition_date"
+    t.boolean "multiple_instruments"
+    t.string "main_instrument"
+    t.string "key_signature"
+    t.bigint "composer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["composer_id"], name: "index_pieces_on_composer_id"
+  end
+
   add_foreign_key "pianos", "manufacturers"
+  add_foreign_key "pieces", "composers"
 end
